@@ -41,9 +41,10 @@ def total_solve(user: str) -> int:
     response = requests.request("GET", URL, headers=HEADERS, params=querystring)
     if response.text == "Not Found":
         return -1
-    res = response.text
-    intra_idx = res.find("solvedCount")
-    return atoi(res[intra_idx + 13 : intra_idx + 17])  # 최대 4자리 문제 수
+    for r in response.text.split(",")[::-1]:
+        values = r.split(":")
+        if values[0][1:-1] == "solvedCount":
+            return atoi(values[1])
 
 
 def csv_read() -> list:
@@ -66,7 +67,7 @@ def csv_read() -> list:
                 continue
 
             tmp = total_solve(name)
-            if tmp == int(solve):
+            if str(tmp) == solve:
                 tmp_lst.append([intra_id, name, tmp, TODAY, 0])
                 USERS["unsolved"].append(intra_id)
             else:
