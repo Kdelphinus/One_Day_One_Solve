@@ -144,9 +144,13 @@ def print_name():
 
 
 if __name__ == "__main__":
-    lst = csv_read()
-    csv_write(lst, "w")
-    add_new_user()
-    print_name()
-    print("\n끝내시려면 enter를 누르세요.")
-    input()
+    try:
+        lst = csv_read()
+        csv_write(lst, "w")
+        add_new_user()
+        print_name()
+        print("\n끝내려면 enter를 누르세요.")
+        input()
+    except:
+        print("Error: 끝내려면 enter를 누르세요.")
+        input()
