@@ -15,6 +15,13 @@
 - 초대는 누구나 환영, 나가는 건 불가
 
 ## 구성원
-|     intra id      |   baekjoon id   |                                  stat                                  |
-|:-----------------:|:---------------:|:----------------------------------------------------------------------:|
-| myko[:octocat:](https://github.com/Kdelphinus) | kmj951015[📚](https://solved.ac/ko/profile/kmj951015) | ![myko백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=kmj951015) |
+|                        intra id                        |                        baekjoon id                         |                           Github                           |
+|:------------------------------------------------------:|:----------------------------------------------------------:|:----------------------------------------------------------:|
+|     [myko](https://profile.intra.42.fr/users/myko)     |    [kmj951015](https://solved.ac/ko/profile/kmj951015)     | [![github](img/github.svg)](https://github.com/Kdelphinus) |
+|  [eunhcho](https://profile.intra.42.fr/users/eunhcho)  |     	[hi_eunho](https://solved.ac/ko/profile/hi_eunho)     |      [![github](img/github.svg)](https://github.com)       |
+| [hyobicho](https://profile.intra.42.fr/users/hyobicho) |     	[chodl201](https://solved.ac/ko/profile/chodl201)     |  [![github](img/github.svg)](https://github.com/hyobb109)  |
+| [jaekkang](https://profile.intra.42.fr/users/jaekkang) | 	[rkdwornjs123](https://solved.ac/ko/profile/rkdwornjs123) |  [![github](img/github.svg)](https://github.com/jaekkang)  |
+| [juyojeon](https://profile.intra.42.fr/users/juyojeon) |      [wdd1016](https://solved.ac/ko/profile/wdd1016)       |  [![github](img/github.svg)](https://github.com/wdd1016)   |
+|  [seulee2](https://profile.intra.42.fr/users/seulee2)  |       [sngsho](https://solved.ac/ko/profile/sngsho)        | [![github](img/github.svg)](https://github.com/sngsho) |
+| [subinlee](https://profile.intra.42.fr/users/subinlee) |         [abyo](https://solved.ac/ko/profile/abyo)          |  [![github](img/github.svg)](https://github.com/subillie)  |
+
