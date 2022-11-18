@@ -1,6 +1,6 @@
 # One Day One Solve(ODOS)
 
-## code
+## Code
 이 레포지토리에 있는 코드들은 출석 관리를 편하게 하기 위한 프로그램용 코드
 
 ## ODOS란
