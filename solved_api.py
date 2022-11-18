@@ -2,6 +2,7 @@ import requests
 import csv
 import datetime
 
+PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
@@ -56,7 +57,7 @@ def csv_read() -> list:
 
     """
     tmp_lst = []
-    with open("solved.csv", "r") as f:
+    with open(PATH, "r") as f:
         rd = csv.reader(f)
         if not rd:
             return []
@@ -86,7 +87,7 @@ def csv_write(tmp_lst: list, option: str):
             w: 기존 내용은 지우고 새로 쓰기
 
     """
-    with open("solved.csv", option, newline="") as f:
+    with open(PATH, option, newline="") as f:
         wr = csv.writer(f)
         wr.writerows(tmp_lst)
 
@@ -147,3 +148,5 @@ if __name__ == "__main__":
     csv_write(lst, "w")
     add_new_user()
     print_name()
+    print("\n끝내시려면 enter를 누르세요.")
+    input()
