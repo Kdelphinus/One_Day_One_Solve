@@ -15,7 +15,7 @@
 - 초대는 누구나 환영, 나가는 건 불가
 
 ## 구성원
-|                        intra id                        |                        baekjoon id                         |                           Github                           |
+|                        42Seoul                         |                          Baekjoon                          |                           Github                           |
 |:------------------------------------------------------:|:----------------------------------------------------------:|:----------------------------------------------------------:|
 |     [myko](https://profile.intra.42.fr/users/myko)     |    [kmj951015](https://solved.ac/ko/profile/kmj951015)     | [![github](img/github.svg)](https://github.com/Kdelphinus) |
 |  [eunhcho](https://profile.intra.42.fr/users/eunhcho)  |     	[hi_eunho](https://solved.ac/ko/profile/hi_eunho)     |      [![github](img/github.svg)](https://github.com)       |
