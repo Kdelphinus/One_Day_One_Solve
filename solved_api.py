@@ -2,7 +2,7 @@ import requests
 import csv
 import datetime
 
-PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
+PATH = "solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
@@ -133,14 +133,14 @@ def print_name():
     print(f"현재 시각: {datetime.datetime.now()}")
     print("😀푼 사람😀")
     for name in USERS["solved"]:
-        print(f"{name}")
+        print(f"@{name}")
     print("\n😡안 푼 사람😡")
     for name in USERS["unsolved"]:
         print(f"@{name}")
     if USERS["new_user"]:
         print("\n🥳새로운 사람🥳")
         for name in USERS["new_user"]:
-            print(f"{name}")
+            print(f"@{name}")
 
 
 if __name__ == "__main__":
