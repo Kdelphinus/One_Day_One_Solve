@@ -2,7 +2,7 @@ import requests
 import csv
 import datetime
 
-PATH = "solved.csv"
+PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
