@@ -63,7 +63,7 @@ def csv_read() -> list:
             return []
         for intra_id, name, solve, update, flag in rd:
             if update == TODAY and flag == "0":
-                tmp_lst.append([intra_id, name, solve, TODAY, 0])
+                tmp_lst.append([intra_id, name, solve, TODAY, flag])
                 USERS["solved"].append(intra_id)
                 continue
 
@@ -76,7 +76,7 @@ def csv_read() -> list:
                     tmp_lst.append([intra_id, name, tmp, TODAY, int(flag) + 1])
                     USERS["unsolved"].append((intra_id, int(flag) + 1))
             else:
-                tmp_lst.append([intra_id, name, tmp, TODAY, 0])
+                tmp_lst.append([intra_id, name, tmp, TODAY, flag])
                 USERS["solved"].append(intra_id)
     return tmp_lst
 
@@ -149,13 +149,9 @@ def print_name():
 
 
 if __name__ == "__main__":
-    try:
-        lst = csv_read()
-        csv_write(lst, "w")
-        add_new_user()
-        print_name()
-        print("\n끝내려면 enter를 누르세요.")
-        input()
-    except:
-        print("Error: 끝내려면 enter를 누르세요.")
-        input()
+    lst = csv_read()
+    csv_write(lst, "w")
+    add_new_user()
+    print_name()
+    print("\n끝내려면 enter를 누르세요.")
+    input()
