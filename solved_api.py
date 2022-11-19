@@ -63,7 +63,7 @@ def csv_read() -> list:
             return []
         for intra_id, name, solve, update, flag in rd:
             if update == TODAY and flag == "0":
-                tmp_lst.append([intra_id, name, solve, TODAY, 1])
+                tmp_lst.append([intra_id, name, solve, TODAY, 0])
                 USERS["solved"].append(intra_id)
                 continue
 
@@ -122,7 +122,7 @@ def add_new_user():
         if tmp != -1:
             print(f"{name}의 인트라 아이디를 입력하세요.")
             intra_id = input()
-            new_users.append([intra_id, name, total_solve(name), TODAY, 1])
+            new_users.append([intra_id, name, total_solve(name), TODAY, 0])
             USERS["new_user"].append(intra_id)
         else:
             print("잘못된 아이디입니다. 다시 입력해주세요.")
