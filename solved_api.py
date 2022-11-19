@@ -31,11 +31,11 @@ def total_solve(user: str) -> int:
     """
     solved.ac api로 접근하여 푼 문제의 수를 가져오는 함수
     Args:
-        user: 백준 intra_id
+        user: 백준 아이디
 
     Returns:
         0 or 양수: 푼 문제의 수
-        -1: 잘못된 intra_id일 경우
+        -1: 잘못된 아이디일 경우
 
     """
     querystring = {"handle": user}
@@ -62,17 +62,21 @@ def csv_read() -> list:
         if not rd:
             return []
         for intra_id, name, solve, update, flag in rd:
-            if update == TODAY and flag == "1":
+            if update == TODAY and flag == "0":
                 tmp_lst.append([intra_id, name, solve, TODAY, 1])
                 USERS["solved"].append(intra_id)
                 continue
 
             tmp = total_solve(name)
             if str(tmp) == solve:
-                tmp_lst.append([intra_id, name, tmp, TODAY, 0])
-                USERS["unsolved"].append(intra_id)
+                if update == TODAY:
+                    tmp_lst.append([intra_id, name, tmp, TODAY, int(flag)])
+                    USERS["unsolved"].append((intra_id, int(flag)))
+                else:
+                    tmp_lst.append([intra_id, name, tmp, TODAY, int(flag) + 1])
+                    USERS["unsolved"].append((intra_id, int(flag) + 1))
             else:
-                tmp_lst.append([intra_id, name, tmp, TODAY, 1])
+                tmp_lst.append([intra_id, name, tmp, TODAY, 0])
                 USERS["solved"].append(intra_id)
     return tmp_lst
 
@@ -130,13 +134,14 @@ def print_name():
     푼 사람, 안 푼 사람, 새로운 사람을 정리해서 출력하는 함수
 
     """
-    print(f"현재 시각: {datetime.datetime.now()}")
+    print(f"⏰현재 시각: {datetime.datetime.now()}")
+    print()
     print("😀푼 사람😀")
     for name in USERS["solved"]:
         print(f"@{name}")
     print("\n😡안 푼 사람😡")
-    for name in USERS["unsolved"]:
-        print(f"@{name}")
+    for name, day in USERS["unsolved"]:
+        print(f"@{name} ({day}일 째)")
     if USERS["new_user"]:
         print("\n🥳새로운 사람🥳")
         for name in USERS["new_user"]:
