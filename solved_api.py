@@ -76,7 +76,7 @@ def csv_read() -> list:
                     tmp_lst.append([intra_id, name, tmp, TODAY, int(flag) + 1])
                     USERS["unsolved"].append((intra_id, int(flag) + 1))
             else:
-                tmp_lst.append([intra_id, name, tmp, TODAY, flag])
+                tmp_lst.append([intra_id, name, tmp, TODAY, 0])
                 USERS["solved"].append(intra_id)
     return tmp_lst
 
