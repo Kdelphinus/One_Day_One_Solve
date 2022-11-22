@@ -1,8 +1,13 @@
 import requests
 import csv
 import datetime
+import platform
 
-PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
+OS = platform.system()
+if OS == "Darwin":
+    PATH = "/Users/myko/odos/solved.csv"
+elif OS == "Windows":
+    PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
