@@ -68,7 +68,7 @@ def csv_read() -> list:
             return []
         for intra_id, name, solve, update, flag in rd:
             if update == TODAY and flag == "0":
-                tmp_lst.append([intra_id, name, solve, TODAY, flag])
+                tmp_lst.append([intra_id, name, total_solve(name), TODAY, flag])
                 USERS["solved"].append(intra_id)
                 continue
 
