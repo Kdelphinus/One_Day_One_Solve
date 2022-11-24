@@ -5,7 +5,7 @@ import platform
 
 OS = platform.system()
 if OS == "Darwin":
-    PATH = "/Users/myko/odos/solved.csv"
+    PATH = "/Users/myko/one_day_one_solve/solved.csv"
 elif OS == "Windows":
     PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
