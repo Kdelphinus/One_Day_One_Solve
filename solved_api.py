@@ -146,7 +146,10 @@ def print_name():
         print(f"@{name}")
     print("\n😡안 푼 사람😡")
     for name, day in USERS["unsolved"]:
-        print(f"@{name} ({day}일 째)")
+        if name == "seulee2":
+            print(f"@{name} (우리의 모임이 {day}일 째 진행중)")
+        else:
+            print(f"@{name} ({day}일 째)")
     if USERS["new_user"]:
         print("\n🥳새로운 사람🥳")
         for name in USERS["new_user"]:
