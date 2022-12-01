@@ -32,11 +32,12 @@
 |                        42Seoul                         |                             Baekjoon                              |                           Github                           |
 |:------------------------------------------------------:|:-----------------------------------------------------------------:|:----------------------------------------------------------:|
 |     [myko](https://profile.intra.42.fr/users/myko)     |        [kmj951015](https://solved.ac/ko/profile/kmj951015)        | [![github](img/github.svg)](https://github.com/Kdelphinus) |
-|  [eunhcho](https://profile.intra.42.fr/users/eunhcho)  |        	[hi_eunho](https://solved.ac/ko/profile/hi_eunho)         |      [![github](img/github.svg)](https://github.com)       |
+|  [eunhcho](https://profile.intra.42.fr/users/eunhcho)  |        	[hi_eunho](https://solved.ac/ko/profile/hi_eunho)         |      [![github](img/github.svg)](https://github.com/AnnyangEH)       |
 | [hyobicho](https://profile.intra.42.fr/users/hyobicho) |        	[chodl201](https://solved.ac/ko/profile/chodl201)         |  [![github](img/github.svg)](https://github.com/hyobb109)  |
 | [jaekkang](https://profile.intra.42.fr/users/jaekkang) |    	[rkdwornjs123](https://solved.ac/ko/profile/rkdwornjs123)     |  [![github](img/github.svg)](https://github.com/jaekkang)  |
 | [juyojeon](https://profile.intra.42.fr/users/juyojeon) |          [wdd1016](https://solved.ac/ko/profile/wdd1016)          |  [![github](img/github.svg)](https://github.com/wdd1016)   |
 |  [seulee2](https://profile.intra.42.fr/users/seulee2)  |           [sngsho](https://solved.ac/ko/profile/sngsho)           | [![github](img/github.svg)](https://github.com/sngsho) |
 | [subinlee](https://profile.intra.42.fr/users/subinlee) |             [abyo](https://solved.ac/ko/profile/abyo)             |  [![github](img/github.svg)](https://github.com/subillie)  |
 | [jiyeolee](https://profile.intra.42.fr/users/jiyeolee) |    [meiv0181](https://solved.ac/ko/profile/meiv0181)              |  [![github](img/github.svg)](https://github.com/pep-per)  |
+| [wonjilee](https://profile.intra.42.fr/users/wonjilee) |    [joon6924](https://solved.ac/ko/profile/joon6924)              |  [![github](img/github.svg)](https://github.com)  |
 
