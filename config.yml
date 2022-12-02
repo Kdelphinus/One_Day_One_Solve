@@ -1,8 +1,0 @@
----
-  intra:
-    client: "u-s4t2ud-8db7942584cc1426b78f0988935f085725c1626033522a3956e1ec0ac712ac47" #UID
-    secret: "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" #SECRET
-    uri: "https://api.intra.42.fr/v2/oauth/token"
-    endpoint: "https://api.intra.42.fr/v2"
-    scopes: "public"
-
