@@ -7,6 +7,7 @@
 - 개선해야 할 점
   - 마지막으로 체크한 후, 새벽 6시가 되기 전에 푼 사람은 내가 직접 체크해야 함
   - 현재 solved api에서 체크할 만한 것이 푼 총 문제 수밖에 없기에 이를 해결하기 위해선 크롤링 등 다른 방법을 찾아봐야 할 듯
+  - 42 api를 더 공부해서 블랙홀 기간 추가
 
 ## ODOS란
 하루에 하나의 백준 문제를 푸는 모임
@@ -41,3 +42,6 @@
 | [jiyeolee](https://profile.intra.42.fr/users/jiyeolee) |    [meiv0181](https://solved.ac/ko/profile/meiv0181)              |  [![github](img/github.svg)](https://github.com/pep-per)  |
 | [wonjilee](https://profile.intra.42.fr/users/wonjilee) |    [joon6924](https://solved.ac/ko/profile/joon6924)              |  [![github](img/github.svg)](https://github.com)  |
 
+
+# 참고
+- [hivehelsinki의 42api-lib](https://github.com/hivehelsinki/42api-lib)

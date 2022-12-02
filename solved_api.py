@@ -2,6 +2,7 @@ import requests
 import csv
 import datetime
 import platform
+from intra import ic
 
 OS = platform.system()
 if OS == "Darwin":
@@ -134,6 +135,12 @@ def add_new_user():
     csv_write(new_users, "a")
 
 
+def get_location(name: str) -> str:
+    response = ic.get("users", params={"filter[login]":name})
+    loc = response.json()[0]['location']
+    return loc if loc else "80시간은 언제 채움"
+
+
 def print_name():
     """
     푼 사람, 안 푼 사람, 새로운 사람을 정리해서 출력하는 함수
@@ -147,9 +154,9 @@ def print_name():
     print("\n😡안 푼 사람😡")
     for name, day in USERS["unsolved"]:
         if name == "seulee2":
-            print(f"@{name} (우리의 모임이 {day}일 째 진행중)")
+            print(f"@{name} (우리의 모임이 {day}일 째 진행중, 현재 위치: {get_location(name)})")
         else:
-            print(f"@{name} ({day}일 째)")
+            print(f"@{name} ({day}일 째, 현재 위치: {get_location(name)})")
     if USERS["new_user"]:
         print("\n🥳새로운 사람🥳")
         for name in USERS["new_user"]:
