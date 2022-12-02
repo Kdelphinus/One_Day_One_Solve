@@ -138,7 +138,7 @@ def add_new_user():
 def get_location(name: str) -> str:
     response = ic.get("users", params={"filter[login]":name})
     loc = response.json()[0]['location']
-    return loc if loc else "80시간은 언제 채움"
+    return loc if loc else "null"
 
 
 def print_name():
@@ -151,12 +151,21 @@ def print_name():
     print("😀푼 사람😀")
     for name in USERS["solved"]:
         print(f"@{name}")
+    sl = ""
     print("\n😡안 푼 사람😡")
     for name, day in USERS["unsolved"]:
+        loc = get_location(name)
         if name == "seulee2":
-            print(f"@{name} (우리의 모임이 {day}일 째 진행중, 현재 위치: {get_location(name)})")
+            if loc != "null":
+                sl = f"@{name} (우리의 모임이 {day}일 째 진행중, 현재 위치: {loc})"
+            else:
+                sl = f"@{name} (우리의 모임이 {day}일 째 진행중, 80시간은 언제 채움)"
+        elif loc == "null":
+            print(f"@{name} ({day}일 째, 80시간은 언제 채움)")
         else:
-            print(f"@{name} ({day}일 째, 현재 위치: {get_location(name)})")
+            print(f"@{name} (우리의 모임이 {day}일 째 진행중, 현재 위치: {loc})")
+    if sl != "":
+        print(sl)
     if USERS["new_user"]:
         print("\n🥳새로운 사람🥳")
         for name in USERS["new_user"]:
