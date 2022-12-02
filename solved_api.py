@@ -67,23 +67,23 @@ def csv_read() -> list:
         rd = csv.reader(f)
         if not rd:
             return []
-        for intra_id, name, solve, update, flag in rd:
+        for name, intra_id, baek_id, solve, update, flag in rd:
             if update == TODAY and flag == "0":
-                tmp_lst.append([intra_id, name, total_solve(name), TODAY, flag])
-                USERS["solved"].append(intra_id)
+                tmp_lst.append([name, intra_id, baek_id, total_solve(baek_id), TODAY, flag])
+                USERS["solved"].append([name, intra_id])
                 continue
 
-            tmp = total_solve(name)
+            tmp = total_solve(baek_id)
             if str(tmp) == solve:
                 if update == TODAY:
-                    tmp_lst.append([intra_id, name, tmp, TODAY, int(flag)])
-                    USERS["unsolved"].append((intra_id, int(flag)))
+                    tmp_lst.append([name, intra_id, baek_id, tmp, TODAY, int(flag)])
+                    USERS["unsolved"].append((name, intra_id, int(flag)))
                 else:
-                    tmp_lst.append([intra_id, name, tmp, TODAY, int(flag) + 1])
-                    USERS["unsolved"].append((intra_id, int(flag) + 1))
+                    tmp_lst.append([name, intra_id, baek_id, tmp, TODAY, int(flag) + 1])
+                    USERS["unsolved"].append((name, intra_id, int(flag) + 1))
             else:
-                tmp_lst.append([intra_id, name, tmp, TODAY, 0])
-                USERS["solved"].append(intra_id)
+                tmp_lst.append([name, intra_id, baek_id, tmp, TODAY, 0])
+                USERS["solved"].append([name, intra_id])
     return tmp_lst
 
 
@@ -102,41 +102,8 @@ def csv_write(tmp_lst: list, option: str):
         wr.writerows(tmp_lst)
 
 
-def add_new_user():
-    """
-    새로운 인원이 있는지 확인하고 추가하는 함수
-
-    """
-    print("새로운 인원이 있습니까?(y/n)")
-    while True:
-        tmp = input()
-        if tmp == "n":
-            return
-        elif tmp == "y":
-            break
-        else:
-            print("y, n 중 하나로 입력하세요")
-
-    print("새로운 유저의 백준 아이디를 입력하세요.")
-    print("enter로 아이디를 구분하고 입력이 끝났으면 0을 입력하세요.")
-    new_users = []
-    while True:
-        name = input()
-        if name == "0":
-            break
-        tmp = total_solve(name)
-        if tmp != -1:
-            print(f"{name}의 인트라 아이디를 입력하세요.")
-            intra_id = input()
-            new_users.append([intra_id, name, total_solve(name), TODAY, 0])
-            USERS["new_user"].append(intra_id)
-        else:
-            print("잘못된 아이디입니다. 다시 입력해주세요.")
-    csv_write(new_users, "a")
-
-
-def get_location(name: str) -> str:
-    response = ic.get("users", params={"filter[login]":name})
+def get_location(baek_id: str) -> str:
+    response = ic.get("users", params={"filter[login]":baek_id})
     loc = response.json()[0]['location']
     return loc if loc else "null"
 
@@ -149,33 +116,26 @@ def print_name():
     print(f"⏰현재 시각: {datetime.datetime.now()}")
     print()
     print("😀푼 사람😀")
-    for name in USERS["solved"]:
-        print(f"@{name}")
+    for name, intra_id in USERS["solved"]:
+        print(f"{name}({intra_id})")
     sl = ""
     print("\n😡안 푼 사람😡")
-    for name, day in USERS["unsolved"]:
-        loc = get_location(name)
-        if name == "seulee2":
+    for name, intra_id, day in USERS["unsolved"]:
+        loc = get_location(intra_id)
+        if name == "이승효":
             if loc != "null":
-                sl = f"@{name} (우리의 모임이 {day}일 째 진행중, 현재 위치: {loc})"
+                sl = f"{name}({intra_id}) (우리의 모임이 {day}일 째 진행중, 현재 위치: {loc})"
             else:
-                sl = f"@{name} (우리의 모임이 {day}일 째 진행중, 80시간은 언제 채움)"
+                sl = f"{name}({intra_id}) (우리의 모임이 {day}일 째 진행중, 놀지말고 클러스터 오세요~)"
         elif loc == "null":
-            print(f"@{name} ({day}일 째, 80시간은 언제 채움)")
+            print(f"{name}({intra_id}) ({day}일 째, 놀지말고 클러스터 오세요~)")
         else:
-            print(f"@{name} (우리의 모임이 {day}일 째 진행중, 현재 위치: {loc})")
+            print(f"{name}({intra_id}) ({day}일 째, 현재 위치: {loc})")
     if sl != "":
         print(sl)
-    if USERS["new_user"]:
-        print("\n🥳새로운 사람🥳")
-        for name in USERS["new_user"]:
-            print(f"@{name}")
 
 
 if __name__ == "__main__":
     lst = csv_read()
     csv_write(lst, "w")
-    add_new_user()
     print_name()
-    print("\n끝내려면 enter를 누르세요.")
-    input()
