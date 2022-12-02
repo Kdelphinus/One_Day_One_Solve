@@ -30,17 +30,17 @@
 - 문제집들로 유사 문제들을 모아서 문제집을 만들 수 있습니다.(ex. push_swap에 도움이 될 수도 있는 문제들)
 
 ## 구성원
-|                        42Seoul                         |                             Baekjoon                              |                           Github                           |
-|:------------------------------------------------------:|:-----------------------------------------------------------------:|:----------------------------------------------------------:|
-|     [myko](https://profile.intra.42.fr/users/myko)     |        [kmj951015](https://solved.ac/ko/profile/kmj951015)        | [![github](img/github.svg)](https://github.com/Kdelphinus) |
-|  [eunhcho](https://profile.intra.42.fr/users/eunhcho)  |        	[hi_eunho](https://solved.ac/ko/profile/hi_eunho)         |      [![github](img/github.svg)](https://github.com/AnnyangEH)       |
-| [hyobicho](https://profile.intra.42.fr/users/hyobicho) |        	[chodl201](https://solved.ac/ko/profile/chodl201)         |  [![github](img/github.svg)](https://github.com/hyobb109)  |
-| [jaekkang](https://profile.intra.42.fr/users/jaekkang) |    	[rkdwornjs123](https://solved.ac/ko/profile/rkdwornjs123)     |  [![github](img/github.svg)](https://github.com/jaekkang)  |
-| [juyojeon](https://profile.intra.42.fr/users/juyojeon) |          [wdd1016](https://solved.ac/ko/profile/wdd1016)          |  [![github](img/github.svg)](https://github.com/wdd1016)   |
-|  [seulee2](https://profile.intra.42.fr/users/seulee2)  |           [sngsho](https://solved.ac/ko/profile/sngsho)           | [![github](img/github.svg)](https://github.com/sngsho) |
-| [subinlee](https://profile.intra.42.fr/users/subinlee) |             [abyo](https://solved.ac/ko/profile/abyo)             |  [![github](img/github.svg)](https://github.com/subillie)  |
-| [jiyeolee](https://profile.intra.42.fr/users/jiyeolee) |    [meiv0181](https://solved.ac/ko/profile/meiv0181)              |  [![github](img/github.svg)](https://github.com/pep-per)  |
-| [wonjilee](https://profile.intra.42.fr/users/wonjilee) |    [joon6924](https://solved.ac/ko/profile/joon6924)              |  [![github](img/github.svg)](https://github.com)  |
+|                        42Seoul                         |                             Baekjoon                              |                           Github                           |Tier|
+|:------------------------------------------------------:|:-----------------------------------------------------------------:|:----------------------------------------------------------:|:----------------------------------------------------------:|
+|     [myko](https://profile.intra.42.fr/users/myko)     |        [kmj951015](https://solved.ac/ko/profile/kmj951015)        | [![github](img/github.svg)](https://github.com/Kdelphinus) |![kmj951015 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=kmj951015)|
+|  [eunhcho](https://profile.intra.42.fr/users/eunhcho)  |        	[hi_eunho](https://solved.ac/ko/profile/hi_eunho)         |      [![github](img/github.svg)](https://github.com/AnnyangEH)       |![hi_eunho 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=hi_eunho)|
+| [hyobicho](https://profile.intra.42.fr/users/hyobicho) |        	[chodl201](https://solved.ac/ko/profile/chodl201)         |  [![github](img/github.svg)](https://github.com/hyobb109)  |![chodl201 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=chodl201)|
+| [jaekkang](https://profile.intra.42.fr/users/jaekkang) |    	[rkdwornjs123](https://solved.ac/ko/profile/rkdwornjs123)     |  [![github](img/github.svg)](https://github.com/jaekkang)  |![rkdwornjs123 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=rkdwornjs123)|
+| [juyojeon](https://profile.intra.42.fr/users/juyojeon) |          [wdd1016](https://solved.ac/ko/profile/wdd1016)          |  [![github](img/github.svg)](https://github.com/wdd1016)   |![wdd1016 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=wdd1016)|
+|  [seulee2](https://profile.intra.42.fr/users/seulee2)  |           [sngsho](https://solved.ac/ko/profile/sngsho)           | [![github](img/github.svg)](https://github.com/sngsho) |![sngsho 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=sngsho)|
+| [subinlee](https://profile.intra.42.fr/users/subinlee) |             [abyo](https://solved.ac/ko/profile/abyo)             |  [![github](img/github.svg)](https://github.com/subillie)  |![abyo 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=abyo)|
+| [jiyeolee](https://profile.intra.42.fr/users/jiyeolee) |    [meiv0181](https://solved.ac/ko/profile/meiv0181)              |  [![github](img/github.svg)](https://github.com/pep-per)  |![meiv0181 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=meiv0181)|
+| [wonjilee](https://profile.intra.42.fr/users/wonjilee) |    [joon6924](https://solved.ac/ko/profile/joon6924)              |  [![github](img/github.svg)](https://github.com)  |![joon6924 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=joon6924)|
 
 
 # 참고
