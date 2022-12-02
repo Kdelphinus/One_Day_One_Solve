@@ -13,6 +13,39 @@ TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
 USERS = {"unsolved": [], "solved": [], "new_user": []}
+TIER = [
+    "newvi",
+    "🤎 V",
+    "🤎 IV",
+    "🤎 III",
+    "🤎 II",
+    "🤎 I",
+    "🤍 V",
+    "🤍 IV",
+    "🤍 III",
+    "🤍 II",
+    "🤍 I",
+    "💛 V",
+    "💛 IV",
+    "💛 III",
+    "💛 II",
+    "💛 I",
+    "💙 V",
+    "💙 IV",
+    "💙 III",
+    "💙 II",
+    "💙 I",
+    "💎 V",
+    "💎 IV",
+    "💎 III",
+    "💎 II",
+    "💎 I",
+    "💖 V",
+    "💖 IV",
+    "💖 III",
+    "💖 II",
+    "💖 I",
+]
 
 
 def atoi(num: str) -> int:
@@ -33,7 +66,7 @@ def atoi(num: str) -> int:
     return ans
 
 
-def total_solve(user: str) -> int:
+def total_solve(user: str) -> list:
     """
     solved.ac api로 접근하여 푼 문제의 수를 가져오는 함수
     Args:
@@ -46,12 +79,16 @@ def total_solve(user: str) -> int:
     """
     querystring = {"handle": user}
     response = requests.request("GET", URL, headers=HEADERS, params=querystring)
+    info = [-1, -1]
     if response.text == "Not Found":
-        return -1
+        return info
     for r in response.text.split(",")[::-1]:
         values = r.split(":")
         if values[0][1:-1] == "solvedCount":
-            return atoi(values[1])
+            info[0] = atoi(values[1])
+        elif values[0][1:-1] == "tier":
+            info[1] = atoi(values[1])
+    return info
 
 
 def csv_read() -> list:
@@ -67,23 +104,23 @@ def csv_read() -> list:
         rd = csv.reader(f)
         if not rd:
             return []
-        for name, intra_id, baek_id, solve, update, flag in rd:
+        for name, intra_id, baek_id, solve, update, flag, tier in rd:
             if update == TODAY and flag == "0":
-                tmp_lst.append([name, intra_id, baek_id, total_solve(baek_id), TODAY, flag])
-                USERS["solved"].append([name, intra_id])
+                tmp_lst.append([name, intra_id, baek_id, total_solve(baek_id), TODAY, flag, tier])
+                USERS["solved"].append([name, intra_id, int(tier)])
                 continue
 
             tmp = total_solve(baek_id)
-            if str(tmp) == solve:
+            if str(tmp[0]) == solve:
                 if update == TODAY:
-                    tmp_lst.append([name, intra_id, baek_id, tmp, TODAY, int(flag)])
-                    USERS["unsolved"].append((name, intra_id, int(flag)))
+                    tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, int(flag), tmp[1]])
+                    USERS["unsolved"].append((name, intra_id, int(flag), int(tmp[1])))
                 else:
-                    tmp_lst.append([name, intra_id, baek_id, tmp, TODAY, int(flag) + 1])
-                    USERS["unsolved"].append((name, intra_id, int(flag) + 1))
+                    tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, int(flag) + 1, tmp[1]])
+                    USERS["unsolved"].append((name, intra_id, int(flag) + 1, int(tmp[1])))
             else:
-                tmp_lst.append([name, intra_id, baek_id, tmp, TODAY, 0])
-                USERS["solved"].append([name, intra_id])
+                tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, 0, int(tmp[1])])
+                USERS["solved"].append([name, intra_id, int(tmp[1])])
     return tmp_lst
 
 
@@ -116,23 +153,19 @@ def print_name():
     print(f"⏰현재 시각: {datetime.datetime.now()}")
     print()
     print("😀푼 사람😀")
-    for name, intra_id in USERS["solved"]:
-        print(f"{name}({intra_id})")
-    sl = ""
+    for name, intra_id, tier in USERS["solved"]:
+        print(f"{name} {TIER[tier]}")
     print("\n😡안 푼 사람😡")
-    for name, intra_id, day in USERS["unsolved"]:
+    no_cluster = []
+    for name, intra_id, day, tier in USERS["unsolved"]:
         loc = get_location(intra_id)
-        if name == "이승효":
-            if loc != "null":
-                sl = f"{name}({intra_id}) (우리의 모임이 {day}일 째 진행중, 현재 위치: {loc})"
-            else:
-                sl = f"{name}({intra_id}) (우리의 모임이 {day}일 째 진행중, 놀지말고 클러스터 오세요~)"
-        elif loc == "null":
-            print(f"{name}({intra_id}) ({day}일 째, 놀지말고 클러스터 오세요~)")
+        if loc == "null":
+            no_cluster.append(f"{name} {TIER[tier]} ({day}일 째, 클러스터 좀 와주시겠어요?🙏🙏)")
         else:
-            print(f"{name}({intra_id}) ({day}일 째, 현재 위치: {loc})")
-    if sl != "":
-        print(sl)
+            print(f"{name} {TIER[tier]} ({day}일 째, 현재 위치: {loc})")
+    print("\n🙏백준도 안 풀고, 클러스터도 안 오고🙏")
+    for s in no_cluster:
+        print(s)
 
 
 if __name__ == "__main__":
