@@ -108,7 +108,7 @@ def csv_read() -> list:
             tmp = total_solve(baek_id)
             if update == TODAY and flag == "0":
                 tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, flag, tmp[1]])
-                USERS["solved"].append([name, intra_id, int(tier)])
+                USERS["solved"].append([name, intra_id, int(tmp[1])])
                 continue
 
             if str(tmp[0]) == solve:
@@ -159,8 +159,15 @@ def print_name():
     print(f"⏰현재 시각: {datetime.datetime.now()}")
     print()
     print("😀푼 사람😀")
+    no_cluster = []
     for name, intra_id, tier in USERS["solved"]:
-        print(f"- {name} {TIER[tier]}")
+        loc = get_location(intra_id)
+        if loc == "null":
+            no_cluster.append(f"- {name} {TIER[tier]} \n(퇴근했습니다.)")
+        else:
+            print(f"- {name} {TIER[tier]} \n(현재 위치: {loc})")
+    for s in no_cluster:
+        print(s)
     print("\n😡안 푼 사람😡")
     no_cluster = []
     for name, intra_id, day, tier in USERS["unsolved"]:
