@@ -100,24 +100,30 @@ def csv_read() -> list:
 
     """
     tmp_lst = []
-    with open(PATH, "r") as f:
+    with open(PATH, "r", encoding="UTF8") as f:
         rd = csv.reader(f)
         if not rd:
             return []
         for name, intra_id, baek_id, solve, update, flag, tier in rd:
+            tmp = total_solve(baek_id)
             if update == TODAY and flag == "0":
-                tmp_lst.append([name, intra_id, baek_id, total_solve(baek_id), TODAY, flag, tier])
+                tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, flag, tmp[1]])
                 USERS["solved"].append([name, intra_id, int(tier)])
                 continue
 
-            tmp = total_solve(baek_id)
             if str(tmp[0]) == solve:
                 if update == TODAY:
-                    tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, int(flag), tmp[1]])
+                    tmp_lst.append(
+                        [name, intra_id, baek_id, tmp[0], TODAY, int(flag), tmp[1]]
+                    )
                     USERS["unsolved"].append((name, intra_id, int(flag), int(tmp[1])))
                 else:
-                    tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, int(flag) + 1, tmp[1]])
-                    USERS["unsolved"].append((name, intra_id, int(flag) + 1, int(tmp[1])))
+                    tmp_lst.append(
+                        [name, intra_id, baek_id, tmp[0], TODAY, int(flag) + 1, tmp[1]]
+                    )
+                    USERS["unsolved"].append(
+                        (name, intra_id, int(flag) + 1, int(tmp[1]))
+                    )
             else:
                 tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, 0, int(tmp[1])])
                 USERS["solved"].append([name, intra_id, int(tmp[1])])
@@ -140,8 +146,8 @@ def csv_write(tmp_lst: list, option: str):
 
 
 def get_location(baek_id: str) -> str:
-    response = ic.get("users", params={"filter[login]":baek_id})
-    loc = response.json()[0]['location']
+    response = ic.get("users", params={"filter[login]": baek_id})
+    loc = response.json()[0]["location"]
     return loc if loc else "null"
 
 
@@ -160,7 +166,9 @@ def print_name():
     for name, intra_id, day, tier in USERS["unsolved"]:
         loc = get_location(intra_id)
         if loc == "null":
-            no_cluster.append(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 클러스터 좀 와주시겠어요?🙏🙏)")
+            no_cluster.append(
+                f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 클러스터 좀 와주시겠어요?🙏🙏)"
+            )
         else:
             print(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})")
     print("\n🙏백준도 안 풀고, 클러스터도 안 오고🙏")
