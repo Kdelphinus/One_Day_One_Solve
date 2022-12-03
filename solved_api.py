@@ -79,13 +79,13 @@ def total_solve(user: str) -> list:
     """
     querystring = {"handle": user}
     response = requests.request("GET", URL, headers=HEADERS, params=querystring)
-    info = [-1, -1]
+    info = [float("inf"), float("inf")]
     if response.text == "Not Found":
         return info
     for r in response.text.split(",")[::-1]:
         values = r.split(":")
         if values[0][1:-1] == "solvedCount":
-            info[0] = atoi(values[1])
+            info[0] = min(atoi(values[1]), info[0])
         elif values[0][1:-1] == "tier":
             info[1] = atoi(values[1])
     return info
@@ -154,15 +154,15 @@ def print_name():
     print()
     print("😀푼 사람😀")
     for name, intra_id, tier in USERS["solved"]:
-        print(f"{name} {TIER[tier]}")
+        print(f"- {name} {TIER[tier]}")
     print("\n😡안 푼 사람😡")
     no_cluster = []
     for name, intra_id, day, tier in USERS["unsolved"]:
         loc = get_location(intra_id)
         if loc == "null":
-            no_cluster.append(f"{name} {TIER[tier]} ({day}일 째, 클러스터 좀 와주시겠어요?🙏🙏)")
+            no_cluster.append(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 클러스터 좀 와주시겠어요?🙏🙏)")
         else:
-            print(f"{name} {TIER[tier]} ({day}일 째, 현재 위치: {loc})")
+            print(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})")
     print("\n🙏백준도 안 풀고, 클러스터도 안 오고🙏")
     for s in no_cluster:
         print(s)
