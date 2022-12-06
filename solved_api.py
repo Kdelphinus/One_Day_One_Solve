@@ -100,7 +100,7 @@ def csv_read() -> list:
 
     """
     tmp_lst = []
-    with open(PATH, "r") as f:
+    with open(PATH, "r", encoding="cp949") as f:
         rd = csv.reader(f)
         if not rd:
             return []
