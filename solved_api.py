@@ -100,7 +100,7 @@ def csv_read() -> list:
 
     """
     tmp_lst = []
-    with open(PATH, "r") as f:
+    with open(PATH, "r", encoding="utf-8") as f:
         rd = csv.reader(f)
         if not rd:
             return []
@@ -140,7 +140,7 @@ def csv_write(tmp_lst: list, option: str):
             w: 기존 내용은 지우고 새로 쓰기
 
     """
-    with open(PATH, option, newline="") as f:
+    with open(PATH, option, newline="", encoding="utf-8") as f:
         wr = csv.writer(f)
         wr.writerows(tmp_lst)
 
