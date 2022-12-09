@@ -145,8 +145,8 @@ def csv_write(tmp_lst: list, option: str):
         wr.writerows(tmp_lst)
 
 
-def get_location(baek_id: str) -> str:
-    response = ic.get("users", params={"filter[login]": baek_id})
+def get_location(intra_id: str) -> str:
+    response = ic.get("users", params={"filter[login]": intra_id})
     loc = response.json()[0]["location"]
     return loc if loc else "null"
 
