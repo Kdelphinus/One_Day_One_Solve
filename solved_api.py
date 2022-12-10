@@ -106,6 +106,10 @@ def csv_read() -> list:
             return []
         for name, intra_id, baek_id, solve, update, flag, tier in rd:
             tmp = total_solve(baek_id)
+            if tmp[0] == float("inf") and tmp[1] == float("inf"):
+                tmp_lst.append([name, intra_id, baek_id, 0, TODAY, flag, 0])
+                USERS["unsolved"].append([name, intra_id, 0, 0])
+                continue
             if update == TODAY and flag == "0":
                 tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, flag, tmp[1]])
                 USERS["solved"].append([name, intra_id, int(tmp[1])])
