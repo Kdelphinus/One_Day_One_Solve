@@ -12,7 +12,7 @@ elif OS == "Windows":
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
-USERS = {"unsolved": [], "solved": [], "new_user": []}
+USERS = {"unsolved": [], "solved": [], "new_user": [], "none_user": []}
 TIER = [
     "newvi",
     "🤎 V",
@@ -108,8 +108,9 @@ def csv_read() -> list:
             tmp = total_solve(baek_id)
             if tmp[0] == float("inf") and tmp[1] == float("inf"):
                 tmp_lst.append([name, intra_id, baek_id, 0, TODAY, flag, 0])
-                USERS["unsolved"].append([name, intra_id, 0, 0])
+                USERS["none_user"].append([name, intra_id])
                 continue
+
             if update == TODAY and flag == "0":
                 tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, flag, tmp[1]])
                 USERS["solved"].append([name, intra_id, int(tmp[1])])
@@ -167,24 +168,33 @@ def print_name():
     for name, intra_id, tier in USERS["solved"]:
         loc = get_location(intra_id)
         if loc == "null":
-            no_cluster.append(f"- {name} {TIER[tier]} \n(퇴근했습니다.)")
+            no_cluster.append(f"- {name} {TIER[tier]} \n(퇴근 or 출근 안 함)")
         else:
             print(f"- {name} {TIER[tier]} \n(현재 위치: {loc})")
     for s in no_cluster:
         print(s)
+
     print("\n😡안 푼 사람😡")
     no_cluster = []
     for name, intra_id, day, tier in USERS["unsolved"]:
         loc = get_location(intra_id)
         if loc == "null":
             no_cluster.append(
-                f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 클러스터 좀 와주시겠어요?🙏🙏)"
+                f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근 or 출근 안 함)"
             )
         else:
             print(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})")
-    print("\n🙏백준도 안 풀고, 클러스터도 안 오고🙏")
+    print("\n🙏백준도 안 풀고, 클러스터에도 없고🙏")
     for s in no_cluster:
         print(s)
+
+    print("\n🙏solved.ac 동의 해주세요🙏")
+    for name, intra_id in USERS["none_user"]:
+        loc = get_location(intra_id)
+        if loc == "null":
+            print(f"- {name}\n(퇴근 or 출근 안함)")
+        else:
+            print(f"- {name}\n(현재 위치: {loc})")
 
 
 if __name__ == "__main__":
