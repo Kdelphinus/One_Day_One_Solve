@@ -163,7 +163,8 @@ def print_name():
     """
     print(f"⏰현재 시각: {datetime.datetime.now()}")
     print()
-    print("😀푼 사람😀")
+    if USERS["solved"]:
+        print("😀푼 사람😀")
     no_cluster = []
     for name, intra_id, tier in USERS["solved"]:
         loc = get_location(intra_id)
@@ -174,7 +175,8 @@ def print_name():
     for s in no_cluster:
         print(s)
 
-    print("\n😡안 푼 사람😡")
+    if USERS["unsolved"]:
+        print("\n😡안 푼 사람😡")
     no_cluster = []
     for name, intra_id, day, tier in USERS["unsolved"]:
         loc = get_location(intra_id)
@@ -184,11 +186,13 @@ def print_name():
             )
         else:
             print(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})")
-    print("\n🙏백준도 안 풀고, 클러스터에도 없고🙏")
+    if no_cluster:
+        print("\n🙏백준도 안 풀고, 클러스터에도 없고🙏")
     for s in no_cluster:
         print(s)
 
-    print("\n🙏solved.ac 동의 해주세요🙏")
+    if USERS["none_user"]:
+        print("\n🙏solved.ac 동의 해주세요🙏")
     for name, intra_id in USERS["none_user"]:
         loc = get_location(intra_id)
         if loc == "null":
