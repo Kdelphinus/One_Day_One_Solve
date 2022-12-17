@@ -14,7 +14,7 @@ URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
 USERS = {"unsolved": [], "solved": [], "new_user": [], "none_user": []}
 TIER = [
-    "newvi",
+    "🖤 newvi",
     "🤎 V",
     "🤎 IV",
     "🤎 III",
@@ -177,26 +177,26 @@ def print_name():
         loc, cluster = get_location(intra_id)
         if loc == "null":
             if cluster:
-                no_cluster.append(f"- {name} {TIER[tier]} \n(퇴근함)")
+                no_cluster.append(f"- {intra_id}({name}) {TIER[tier]} \n(퇴근함)")
             else:
-                no_cluster.append(f"- {name} {TIER[tier]} \n(출근 안 함)")
+                no_cluster.append(f"- {intra_id}({name}) {TIER[tier]} \n(출근 안 함)")
         else:
-            print(f"- {name} {TIER[tier]} \n(현재 위치: {loc})")
+            print(f"- {intra_id}({name}) {TIER[tier]} \n(현재 위치: {loc})")
     for s in no_cluster:
         print(s)
 
     if USERS["unsolved"]:
-        print("\n😡안 푼 사람😡")
+        print("\n😢안 푼 사람😢")
     no_cluster = []
     for name, intra_id, day, tier in USERS["unsolved"]:
         loc, cluster = get_location(intra_id)
         if loc == "null":
             if cluster:
-                print(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)")
+                print(f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)")
             else:
-                no_cluster.append(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)")
+                no_cluster.append(f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)")
         else:
-            print(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})")
+            print(f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})")
     if no_cluster:
         print("\n🙏백준도 안 풀고, 클러스터에도 없고🙏")
     for s in no_cluster:
@@ -208,11 +208,11 @@ def print_name():
         loc, cluster = get_location(intra_id)
         if loc == "null" and cluster == 0:
             if cluster:
-                print(f"- {name}\n(퇴근함)")
+                print(f"- {intra_id}({name})\n(퇴근함)")
             else:
-                print(f"- {name}\n(출근 안 함)")
+                print(f"- {intra_id}({name})\n(출근 안 함)")
         else:
-            print(f"- {name}\n(현재 위치: {loc})")
+            print(f"- {intra_id}({name})\n(현재 위치: {loc})")
 
 
 if __name__ == "__main__":
