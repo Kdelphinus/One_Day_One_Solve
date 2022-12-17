@@ -150,10 +150,19 @@ def csv_write(tmp_lst: list, option: str):
         wr.writerows(tmp_lst)
 
 
-def get_location(intra_id: str) -> str:
+def get_location(intra_id: str) -> tuple:
     response = ic.get("users", params={"filter[login]": intra_id})
     loc = response.json()[0]["location"]
-    return loc if loc else "null"
+    date, time = response.json()[0]["updated_at"].split("T")
+    date = list(map(int, date.split("-")))
+    time = list(map(int, time[:-5].split(":")))
+    last_time = datetime.datetime(date[0], date[1], date[2], time[0], time[1], 0)
+    flag = (
+        1
+        if int(last_time.strftime("%d")) >= int(datetime.datetime.now().strftime("%d"))
+        else 0
+    )
+    return (loc, flag) if loc else ("null", flag)
 
 
 def print_name():
@@ -167,9 +176,12 @@ def print_name():
         print("😀푼 사람😀")
     no_cluster = []
     for name, intra_id, tier in USERS["solved"]:
-        loc = get_location(intra_id)
+        loc, flag = get_location(intra_id)
         if loc == "null":
-            no_cluster.append(f"- {name} {TIER[tier]} \n(퇴근 or 출근 안 함)")
+            if flag:
+                no_cluster.append(f"- {name} {TIER[tier]} \n(퇴근함)")
+            else:
+                no_cluster.append(f"- {name} {TIER[tier]} \n(출근 안 함)")
         else:
             print(f"- {name} {TIER[tier]} \n(현재 위치: {loc})")
     for s in no_cluster:
@@ -179,11 +191,12 @@ def print_name():
         print("\n😡안 푼 사람😡")
     no_cluster = []
     for name, intra_id, day, tier in USERS["unsolved"]:
-        loc = get_location(intra_id)
+        loc, flag = get_location(intra_id)
         if loc == "null":
-            no_cluster.append(
-                f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근 or 출근 안 함)"
-            )
+            if flag:
+                no_cluster.append(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)")
+            else:
+                no_cluster.append(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)")
         else:
             print(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})")
     if no_cluster:
@@ -194,9 +207,12 @@ def print_name():
     if USERS["none_user"]:
         print("\n🙏solved.ac 동의 해주세요🙏")
     for name, intra_id in USERS["none_user"]:
-        loc = get_location(intra_id)
+        loc, flag = get_location(intra_id)
         if loc == "null":
-            print(f"- {name}\n(퇴근 or 출근 안함)")
+            if flag:
+                print(f"- {name}\n(퇴근함)")
+            else:
+                print(f"- {name}\n(출근 안 함)")
         else:
             print(f"- {name}\n(현재 위치: {loc})")
 
@@ -205,3 +221,4 @@ if __name__ == "__main__":
     lst = csv_read()
     csv_write(lst, "w")
     print_name()
+    print("\n주의 사항: 어제부터 로그인하고 로그아웃 안 되어있으면 출근 기록이 안 될 수 있습니다.")
