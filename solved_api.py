@@ -116,7 +116,7 @@ def csv_read() -> list:
                 USERS["solved"].append([name, intra_id, int(tmp[1])])
                 continue
 
-            if str(tmp[0]) == solve:
+            if str(tmp[0]) <= solve:
                 if update == TODAY:
                     tmp_lst.append(
                         [name, intra_id, baek_id, tmp[0], TODAY, int(flag), tmp[1]]
@@ -157,12 +157,10 @@ def get_location(intra_id: str) -> tuple:
     date = list(map(int, date.split("-")))
     time = list(map(int, time[:-5].split(":")))
     last_time = datetime.datetime(date[0], date[1], date[2], time[0], time[1], 0)
-    flag = (
-        1
-        if int(last_time.strftime("%d")) >= int(datetime.datetime.now().strftime("%d"))
-        else 0
-    )
-    return (loc, flag) if loc else ("null", flag)
+    last_time += datetime.timedelta(hours=9)
+    now_day = datetime.datetime.now().strftime("%d")
+    cluster = 1 if int(last_time.strftime("%d")) >= int(now_day) else 0
+    return (loc, cluster) if loc else ("null", cluster)
 
 
 def print_name():
@@ -176,9 +174,9 @@ def print_name():
         print("😀푼 사람😀")
     no_cluster = []
     for name, intra_id, tier in USERS["solved"]:
-        loc, flag = get_location(intra_id)
+        loc, cluster = get_location(intra_id)
         if loc == "null":
-            if flag:
+            if cluster:
                 no_cluster.append(f"- {name} {TIER[tier]} \n(퇴근함)")
             else:
                 no_cluster.append(f"- {name} {TIER[tier]} \n(출근 안 함)")
@@ -191,10 +189,10 @@ def print_name():
         print("\n😡안 푼 사람😡")
     no_cluster = []
     for name, intra_id, day, tier in USERS["unsolved"]:
-        loc, flag = get_location(intra_id)
+        loc, cluster = get_location(intra_id)
         if loc == "null":
-            if flag:
-                no_cluster.append(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)")
+            if cluster:
+                print(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)")
             else:
                 no_cluster.append(f"- {name} {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)")
         else:
@@ -207,9 +205,9 @@ def print_name():
     if USERS["none_user"]:
         print("\n🙏solved.ac 동의 해주세요🙏")
     for name, intra_id in USERS["none_user"]:
-        loc, flag = get_location(intra_id)
-        if loc == "null":
-            if flag:
+        loc, cluster = get_location(intra_id)
+        if loc == "null" and cluster == 0:
+            if cluster:
                 print(f"- {name}\n(퇴근함)")
             else:
                 print(f"- {name}\n(출근 안 함)")
