@@ -194,9 +194,13 @@ def print_name():
             if cluster:
                 print(f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)")
             else:
-                no_cluster.append(f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)")
+                no_cluster.append(
+                    f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)"
+                )
         else:
-            print(f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})")
+            print(
+                f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})"
+            )
     if no_cluster:
         print("\n🙏백준도 안 풀고, 클러스터에도 없고🙏")
     for s in no_cluster:
@@ -219,4 +223,4 @@ if __name__ == "__main__":
     lst = csv_read()
     csv_write(lst, "w")
     print_name()
-    print("\n주의 사항: 어제부터 로그인하고 로그아웃 안 되어있으면 출근 기록이 안 될 수 있습니다.")
+    print("\n주의 사항: 출근은 자정 시간 이후 맥 로그인 기록으로 판단합니다.")
