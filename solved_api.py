@@ -151,6 +151,14 @@ def csv_write(tmp_lst: list, option: str):
 
 
 def get_location(intra_id: str) -> tuple:
+    """
+    위치와 출퇴근을 조사하는 함수
+    Args:
+        intra_id: 인트라 아이디
+
+    Returns:
+        위치와 출퇴근 여부를 반환
+    """
     response = ic.get("users", params={"filter[login]": intra_id})
     loc = response.json()[0]["location"]
     date, time = response.json()[0]["updated_at"].split("T")
@@ -158,8 +166,8 @@ def get_location(intra_id: str) -> tuple:
     time = list(map(int, time[:-5].split(":")))
     last_time = datetime.datetime(date[0], date[1], date[2], time[0], time[1], 0)
     last_time += datetime.timedelta(hours=9)
-    now_day = datetime.datetime.now().strftime("%d")
-    cluster = 1 if int(last_time.strftime("%d")) >= int(now_day) else 0
+    now_day = datetime.datetime.now()
+    cluster = 1 if last_time >= now_day else 0
     return (loc, cluster) if loc else ("null", cluster)
 
 
