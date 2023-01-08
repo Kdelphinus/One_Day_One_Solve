@@ -165,8 +165,8 @@ def get_location(intra_id: str) -> tuple:
     date = list(map(int, date.split("-")))
     time = list(map(int, time[:-5].split(":")))
     last_time = datetime.datetime(date[0], date[1], date[2], time[0], time[1], 0)
-    last_time += datetime.timedelta(hours=9)
-    now_day = datetime.datetime.now()
+    last_time += datetime.timedelta(hours=3)  # utc 9h - 6h
+    now_day = datetime.datetime.now() - datetime.timedelta(hours=6)
     cluster = 1 if last_time >= now_day else 0
     return (loc, cluster) if loc else ("null", cluster)
 
@@ -231,4 +231,4 @@ if __name__ == "__main__":
     lst = csv_read()
     csv_write(lst, "w")
     print_name()
-    print("\n주의 사항: 출근은 자정 시간 이후 맥 로그인 기록으로 판단합니다.")
+    print("\n주의 사항: 출근은 새벽 6시 ~ 익일 새벽 5시 59분 사이 맥 로그인 기록으로 판단합니다.")
