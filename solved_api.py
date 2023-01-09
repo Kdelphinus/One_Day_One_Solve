@@ -165,8 +165,9 @@ def get_location(intra_id: str) -> tuple:
     date = list(map(int, date.split("-")))
     time = list(map(int, time[:-5].split(":")))
     last_time = datetime.datetime(date[0], date[1], date[2], time[0], time[1], 0)
-    last_time += datetime.timedelta(hours=3)  # utc 9h - 6h
+    last_time += datetime.timedelta(hours=9)
     now_day = datetime.datetime.now() - datetime.timedelta(hours=6)
+    now_day = datetime.datetime(now_day.year, now_day.month, now_day.day, 6, 0, 0, 0)
     cluster = 1 if last_time >= now_day else 0
     return (loc, cluster) if loc else ("null", cluster)
 
