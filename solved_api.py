@@ -3,6 +3,7 @@ import csv
 import datetime
 import platform
 from intra import ic
+from slack_bot import SlackAPI
 
 OS = platform.system()
 if OS == "Darwin":
@@ -13,6 +14,7 @@ TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
 USERS = {"unsolved": [], "solved": [], "new_user": [], "none_user": []}
+SLACK_TOKEN = "xoxb-4678080307476-4673512758069-9nnNeELf0zz91Y6JOn98zrzs"
 TIER = [
     "🖤 newvi",
     "🤎 V",
@@ -177,59 +179,61 @@ def print_name():
     푼 사람, 안 푼 사람, 새로운 사람을 정리해서 출력하는 함수
 
     """
-    print(f"⏰현재 시각: {datetime.datetime.now()}")
-    print()
+    text = ""
+    text += f"⏰현재 시각: {datetime.datetime.now()}\n\n"
     if USERS["solved"]:
-        print("😀푼 사람😀")
+        text += "😀푼 사람😀\n"
     no_cluster = []
     for name, intra_id, tier in USERS["solved"]:
         loc, cluster = get_location(intra_id)
         if loc == "null":
             if cluster:
-                no_cluster.append(f"- {intra_id}({name}) {TIER[tier]} \n(퇴근함)")
+                no_cluster.append(f"- @{intra_id} ({name}) {TIER[tier]} \n(퇴근함)")
             else:
-                no_cluster.append(f"- {intra_id}({name}) {TIER[tier]} \n(출근 안 함)")
+                no_cluster.append(f"- @{intra_id} ({name}) {TIER[tier]} \n(출근 안 함)")
         else:
-            print(f"- {intra_id}({name}) {TIER[tier]} \n(현재 위치: {loc})")
+            text += f"- @{intra_id} ({name}) {TIER[tier]} \n(현재 위치: {loc})\n"
     for s in no_cluster:
-        print(s)
+        text += s + "\n"
 
     if USERS["unsolved"]:
-        print("\n😢안 푼 사람😢")
+        text += "\n😢안 푼 사람😢\n"
     no_cluster = []
     for name, intra_id, day, tier in USERS["unsolved"]:
         loc, cluster = get_location(intra_id)
         if loc == "null":
             if cluster:
-                print(f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)")
+                text += (
+                    f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)\n"
+                )
             else:
                 no_cluster.append(
-                    f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)"
+                    f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)"
                 )
         else:
-            print(
-                f"- {intra_id}({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})"
-            )
+            text += f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})\n"
     if no_cluster:
-        print("\n🙏백준도 안 풀고, 클러스터에도 없고🙏")
+        text += "\n🙏백준도 안 풀고, 클러스터에도 없고🙏\n"
     for s in no_cluster:
-        print(s)
+        text += s + "\n"
 
     if USERS["none_user"]:
-        print("\n🙏solved.ac 동의 해주세요🙏")
+        text += "\n🙏solved.ac 동의 해주세요🙏\n"
     for name, intra_id in USERS["none_user"]:
         loc, cluster = get_location(intra_id)
         if loc == "null" and cluster == 0:
             if cluster:
-                print(f"- {intra_id}({name})\n(퇴근함)")
+                text += f"- @{intra_id} ({name})\n(퇴근함)\n"
             else:
-                print(f"- {intra_id}({name})\n(출근 안 함)")
+                text += f"- @{intra_id} ({name})\n(출근 안 함)\n"
         else:
-            print(f"- {intra_id}({name})\n(현재 위치: {loc})")
+            text += f"- @{intra_id} ({name})\n(현재 위치: {loc})\n"
+    text += "\n주의 사항: 출근은 새벽 6시 ~ 익일 새벽 5시 59분 사이 맥 로그인 기록으로 판단합니다.\n"
+    return text
 
 
 if __name__ == "__main__":
     lst = csv_read()
     csv_write(lst, "w")
-    print_name()
-    print("\n주의 사항: 출근은 새벽 6시 ~ 익일 새벽 5시 59분 사이 맥 로그인 기록으로 판단합니다.")
+    slack = SlackAPI(SLACK_TOKEN)
+    slack.post_chat_message("독촉", print_name())
