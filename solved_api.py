@@ -235,5 +235,7 @@ def print_name():
 if __name__ == "__main__":
     lst = csv_read()
     csv_write(lst, "w")
+    message = print_name()
+    print(message)
     slack = SlackAPI(SLACK_TOKEN)
-    slack.post_chat_message("독촉", print_name())
+    slack.post_chat_message("독촉", message)
