@@ -1,5 +1,6 @@
 import requests
 import csv
+import os
 import datetime
 import platform
 from intra import ic
@@ -14,7 +15,6 @@ TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
 USERS = {"unsolved": [], "solved": [], "new_user": [], "none_user": []}
-SLACK_TOKEN = "xoxb-4678080307476-4673512758069-9nnNeELf0zz91Y6JOn98zrzs"
 TIER = [
     "🖤 newvi",
     "🤎 V",
@@ -237,5 +237,8 @@ if __name__ == "__main__":
     csv_write(lst, "w")
     message = print_name()
     print(message)
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+    with open(base_dir + "/token.txt", "r") as token:
+        SLACK_TOKEN = token.readline()
     slack = SlackAPI(SLACK_TOKEN)
     slack.post_chat_message("독촉", message)
