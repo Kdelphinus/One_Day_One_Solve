@@ -11,6 +11,8 @@ if OS == "Darwin":
     PATH = "/Users/myko/one_day_one_solve/solved.csv"
 elif OS == "Windows":
     PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
+elif OS == "Linux"
+    PATH = "/home/ubuntu/One_Day_One_Solve/solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
