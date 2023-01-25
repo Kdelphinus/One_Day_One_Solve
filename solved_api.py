@@ -11,7 +11,7 @@ if OS == "Darwin":
     PATH = "/Users/myko/one_day_one_solve/solved.csv"
 elif OS == "Windows":
     PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
-elif OS == "Linux"
+elif OS == "Linux":
     PATH = "/home/ubuntu/One_Day_One_Solve/solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
@@ -242,5 +242,6 @@ if __name__ == "__main__":
     base_dir = os.path.dirname(os.path.realpath(__file__))
     with open(base_dir + "/token.txt", "r") as token:
         SLACK_TOKEN = token.readline()
-    slack = SlackAPI(SLACK_TOKEN)
-    slack.post_chat_message("독촉", message)
+    if 7 < datetime.datetime.now().hour:
+        slack = SlackAPI(SLACK_TOKEN)
+        slack.post_chat_message("독촉", message)
