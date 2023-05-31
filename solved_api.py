@@ -8,11 +8,11 @@ from slack_bot import SlackAPI
 
 OS = platform.system()
 if OS == "Darwin":
-    PATH = "/Users/myko/one_day_one_solve/solved.csv"
+    PATH = "/Users/myko/odos/solved.csv"
 elif OS == "Windows":
     PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
 elif OS == "Linux":
-    PATH = "/home/ubuntu/One_Day_One_Solve/solved.csv"
+    PATH = "/home/ubuntu/odos/solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
@@ -252,11 +252,9 @@ if __name__ == "__main__":
     csv_write(lst, "w")
     message = print_name()
     print(message)
-    '''
     base_dir = os.path.dirname(os.path.realpath(__file__))
     with open(base_dir + "/token.txt", "r") as token:
         SLACK_TOKEN = token.readline()
     if 7 < datetime.datetime.now().hour:
         slack = SlackAPI(SLACK_TOKEN)
         slack.post_chat_message("독촉", message)
-        '''
