@@ -101,34 +101,36 @@ def csv_read() -> list:
         rd = csv.reader(f)
         if not rd:
             return []
-        for name, intra_id, baek_id, solve, update, flag, tier in rd:
+        for name, intra_id, baek_id, solve, update, flag, tier, continuity in rd:
             tmp = total_solve(baek_id)
             if tmp[0] == float("inf") and tmp[1] == float("inf"):
-                tmp_lst.append([name, intra_id, baek_id, 0, TODAY, flag, 0])
+                tmp_lst.append([name, intra_id, baek_id, 0, TODAY, flag, 0, 1])
                 USERS["none_user"].append([name, intra_id])
                 continue
 
             if update == TODAY and flag == "0":
-                tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, flag, tmp[1]])
-                USERS["solved"].append([name, intra_id, int(tmp[1])])
+                tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, flag, tmp[1], continuity])
+                USERS["solved"].append([name, intra_id, int(tmp[1]), continuity])
                 continue
 
             if str(tmp[0]) <= solve:
+                if int(flag) > 1:
+                    continuity = "0"
                 if update == TODAY:
                     tmp_lst.append(
-                        [name, intra_id, baek_id, tmp[0], TODAY, int(flag), tmp[1]]
+                        [name, intra_id, baek_id, tmp[0], TODAY, int(flag), tmp[1], continuity]
                     )
                     USERS["unsolved"].append((name, intra_id, int(flag), int(tmp[1])))
                 else:
                     tmp_lst.append(
-                        [name, intra_id, baek_id, tmp[0], TODAY, int(flag) + 1, tmp[1]]
+                        [name, intra_id, baek_id, tmp[0], TODAY, int(flag) + 1, tmp[1], continuity]
                     )
                     USERS["unsolved"].append(
                         (name, intra_id, int(flag) + 1, int(tmp[1]))
                     )
             else:
-                tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, 0, int(tmp[1])])
-                USERS["solved"].append([name, intra_id, int(tmp[1])])
+                tmp_lst.append([name, intra_id, baek_id, tmp[0], TODAY, 0, int(tmp[1]), str(int(continuity) + 1)])
+                USERS["solved"].append([name, intra_id, int(tmp[1]), str(int(continuity) + 1)])
     return tmp_lst
 
 
@@ -179,15 +181,15 @@ def print_name():
     if USERS["solved"]:
         text += "😀푼 사람😀\n"
     no_cluster = []
-    for name, intra_id, tier in USERS["solved"]:
+    for name, intra_id, tier, continuity in USERS["solved"]:
         loc, cluster = get_location(intra_id)
         if loc == "null":
             if cluster:
-                no_cluster.append(f"- @{intra_id} ({name}) {TIER[tier]} \n(퇴근함)")
+                no_cluster.append(f"- {intra_id} ({name}) {TIER[tier]} \n({continuity}일 연속으로 푸는 중, 퇴근함)")
             else:
-                no_cluster.append(f"- @{intra_id} ({name}) {TIER[tier]} \n(출근 안 함)")
+                no_cluster.append(f"- {intra_id} ({name}) {TIER[tier]} \n({continuity}일 연속으로 푸는 중, 출근 안 함)")
         else:
-            text += f"- @{intra_id} ({name}) {TIER[tier]} \n(현재 위치: {loc})\n"
+            text += f"- {intra_id} ({name}) {TIER[tier]} \n({continuity}일 연속으로 푸는 중, 현재 위치: {loc})\n"
     for s in no_cluster:
         text += s + "\n"
 
@@ -199,23 +201,23 @@ def print_name():
         if loc == "null":
             if cluster:
                 if day > 99:
-                    text += f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째... 집에서라도 풀어요, 퇴근함)\n"
+                    text += f"- {intra_id} ({name}) {TIER[tier]} \n({day}일 째... 집에서라도 풀어요, 퇴근함)\n"
                 else:
-                    text += f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)\n"
+                    text += f"- {intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)\n"
             else:
                 if day > 99:
                     no_cluster.append(
-                        f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째... 살아있나요)"
+                        f"- {intra_id} ({name}) {TIER[tier]} \n({day}일 째... 살아있나요)"
                     )
                 else:
                     no_cluster.append(
-                        f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)"
+                        f"- {intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 출근 안 함)"
                     )
         else:
             if day > 99:
-                text += f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째... 과제쉴 때 게임하지 말고 백준 풀어요, 현재 위치: {loc})\n"
+                text += f"- {intra_id} ({name}) {TIER[tier]} \n({day}일 째... 과제쉴 때 게임하지 말고 백준 풀어요, 현재 위치: {loc})\n"
             else:
-                text += f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})\n"
+                text += f"- {intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 현재 위치: {loc})\n"
     if no_cluster:
         text += "\n🙏백준도 안 풀고, 클러스터에도 없고🙏\n"
     for s in no_cluster:
@@ -227,11 +229,11 @@ def print_name():
         loc, cluster = get_location(intra_id)
         if loc == "null" and cluster == 0:
             if cluster:
-                text += f"- @{intra_id} ({name})\n(퇴근함)\n"
+                text += f"- {intra_id} ({name})\n(퇴근함)\n"
             else:
-                text += f"- @{intra_id} ({name})\n(출근 안 함)\n"
+                text += f"- {intra_id} ({name})\n(출근 안 함)\n"
         else:
-            text += f"- @{intra_id} ({name})\n(현재 위치: {loc})\n"
+            text += f"- {intra_id} ({name})\n(현재 위치: {loc})\n"
     text += "\n주의 사항: 출근은 새벽 6시 ~ 익일 새벽 5시 59분 사이 맥 로그인 기록으로 판단합니다.\n"
     return text
 
