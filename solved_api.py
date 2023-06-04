@@ -2,17 +2,10 @@ import requests
 import csv
 import os
 import datetime
-import platform
 from intra import ic
 from slack_bot import SlackAPI
 
-OS = platform.system()
-if OS == "Darwin":
-    PATH = "/Users/myko/odos/solved.csv"
-elif OS == "Windows":
-    PATH = "C:/Users/delphinus/Desktop/Workspace/solved.ac/solved.csv"
-elif OS == "Linux":
-    PATH = "/home/ubuntu/odos/solved.csv"
+PATH = os.getcwd() + "/solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
@@ -206,17 +199,13 @@ def print_name():
         if loc == "null":
             if cluster:
                 if day > 99:
-                    text += (
-                            f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째... 집에서라도 풀어요, 퇴근함)\n"
-                     )
+                    text += f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째... 집에서라도 풀어요, 퇴근함)\n"
                 else:
-                    text += (
-                        f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)\n"
-                    )
+                    text += f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째 안 푸는 중, 퇴근함)\n"
             else:
                 if day > 99:
                     no_cluster.append(
-                            f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째... 살아있나요)"
+                        f"- @{intra_id} ({name}) {TIER[tier]} \n({day}일 째... 살아있나요)"
                     )
                 else:
                     no_cluster.append(
