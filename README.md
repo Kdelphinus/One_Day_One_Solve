@@ -1,5 +1,8 @@
 # One Day One Solve(ODOS)
 
+## 정권교체
+- 2023.06.05일부로 subinlee가 주도하여 진행
+
 ## 출석 Code
 - 이 레포지토리에 있는 코드들은 출석 관리를 편하게 하기 위한 프로그램용 코드
 - 수정 요청, 같이 수정 언제든지 환영
@@ -63,4 +66,5 @@
 |   [eunson](https://profile.intra.42.fr/users/eunson)   |     [ebcode2021](https://solved.ac/ko/profile/ebcode2021)      |      [![github](img/github.svg)](https://github.com)       |   ![ebcode2021 백준](http://mazassumnida.wtf/api/v2/generate_badge?boj=ebcode2021)   |
 
 # 참고
+- [42seoul, 42api](https://api.intra.42.fr/apidoc)
 - [hivehelsinki의 42api-lib](https://github.com/hivehelsinki/42api-lib)
