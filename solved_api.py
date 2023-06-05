@@ -5,7 +5,11 @@ import datetime
 from intra import ic
 from slack_bot import SlackAPI
 
-PATH = os.getcwd() + "/solved.csv"
+# 직접 실행하는 경우, os.getcwd()로 실행하면 되지만
+# crontab으로 실행하는 경우 getcwd로 가져오는 경로가 다른 것으로 보임
+# 그래서 우선 절대 경로를 직접 넣는 것으로 수정
+# PATH = os.getcwd() + "/solved.csv"
+PATH = "/home/ubuntu/odos/solved.csv"
 TODAY = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d")
 URL = "https://solved.ac/api/v3/user/show"
 HEADERS = {"Content-Type": "application/json"}
